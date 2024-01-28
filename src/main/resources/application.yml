@@ -1,0 +1,23 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: ESHOP-CORE-SERVICE
+  datasource:
+    url: jdbc:postgresql://localhost:5432/eshop
+    username: postgres
+    password: password@123
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org:
+      springframework:
+        context: DEBUG
+
+app:
+  jwt-secret: bXktand0LXNlY3JldC1rZXktZm9yLWUtc2hvcC1hcHBsaWNhdGlvbg==
+  jwt-expires-in: 2629800000
