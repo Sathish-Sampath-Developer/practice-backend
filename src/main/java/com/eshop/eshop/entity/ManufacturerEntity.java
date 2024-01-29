@@ -1,12 +1,13 @@
 package com.eshop.eshop.entity;
 
+import com.eshop.eshop.entity.product.ProductEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,6 +23,9 @@ public class ManufacturerEntity {
     @Column(name = "MANUFACTURER_ID")
     private Long id;
 
+    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductEntity> products = new ArrayList<>();
+
     @Column(name = "MANUFACTURER_IMAGE")
     private String manufacturer_image;
 
@@ -34,12 +38,23 @@ public class ManufacturerEntity {
     @Column(name = "MANUFACTURER_PHONE")
     private String manufacturer_phone;
 
-    @Column(name = "MANUFACTURER_ADDRESS")
-    private String manufacturer_address;
+    @Column(name = "ADDRESS_LINE_ONE")
+    private String address_line_one;
 
-    @NotEmpty
-    @Column(name = "MANUFACTURER_CODE", length = 100, nullable = false)
-    private String manufacturer_code;
+    @Column(name = "ADDRESS_LINE_TWO")
+    private String address_line_two;
+
+    @Column(name = "CITY")
+    private String city;
+
+    @Column(name = "STATE")
+    private String state;
+
+    @Column(name = "COUNTRY")
+    private String country;
+
+    @Column(name = "PIN")
+    private String pin;
 
     @Column(name = "ORDERS")
     private List<String> orders;

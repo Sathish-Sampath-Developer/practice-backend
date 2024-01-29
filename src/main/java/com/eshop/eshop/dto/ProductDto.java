@@ -6,6 +6,7 @@ import com.eshop.eshop.entity.MerchantStoreEntity;
 import com.eshop.eshop.entity.product.variant.ProductVariant;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -18,7 +19,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@Data
 public class ProductDto {
     private Long id;
     private String title;
@@ -45,4 +45,8 @@ public class ProductDto {
     private ManufacturerDto manufacturer;
     private MerchantStoreDto merchantStore;
     private boolean deleted;
+    private Date dateCreated;
+    private Date dateModified;
+    private String createdBy;
+    private String modifiedBy;
 }

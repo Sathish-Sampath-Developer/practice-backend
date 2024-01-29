@@ -1,4 +1,4 @@
-package com.eshop.authservice.enums;
+package com.eshop.eshop.enums;
 
 public enum RoleEnum {
     SUPER_ADMIN,

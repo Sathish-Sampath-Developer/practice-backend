@@ -42,22 +42,25 @@ public class MerchantStoreEntity {
     @Column(name = "STORE_PHONE", length = 50)
     private String storePhone;
 
-    @Column(name = "STORE_ADDRESS")
-    private String storeAddress;
+    @Column(name = "ADDRESS_LINE_ONE")
+    private String address_line_one;
+
+    @Column(name = "ADDRESS_LINE_TWO")
+    private String address_line_two;
 
     @NotEmpty
     @Column(name = "STORE_CITY", length = 100)
     private String storeCity;
 
+    @Column(name = "STORE_STATE")
+    private String state;
+
     @NotEmpty
-    @Column(name = "STORE_POSTAL_CODE", length = 15)
-    private String storePostalCode;
+    @Column(name = "STORE_PIN", length = 15)
+    private String storePin;
 
-    @Column(name = "COUNTRY_ID", nullable = false)
+    @Column(name = "COUNTRY")
     private String country;
-
-    @Column(name = "ZONE")
-    private String zone;
 
     @Column(name = "STORE_STATE_PROV", length = 100)
     private String storeStateProvince;

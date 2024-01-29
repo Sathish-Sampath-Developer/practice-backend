@@ -1,9 +1,5 @@
 package com.eshop.eshop.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ManufacturerDto {
+public class ManufacturerWithProductsDto {
     private Long id;
     private String manufacturer_image;
     private String manufacturer_name;
@@ -29,4 +25,5 @@ public class ManufacturerDto {
     private String pin;
     private List<String> orders;
     private boolean deleted;
+    private List<ProductDto> products;
 }

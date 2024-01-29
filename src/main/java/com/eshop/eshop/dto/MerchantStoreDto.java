@@ -1,7 +1,12 @@
 package com.eshop.eshop.dto;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,11 +19,12 @@ public class MerchantStoreDto {
     private String storeName;
     private String code;
     private String storePhone;
-    private String storeAddress;
+    private String address_line_one;
+    private String address_line_two;
     private String storeCity;
-    private String storePostalCode;
+    private String state;
+    private String storePin;
     private String country;
-    private String zone;
     private String storeStateProvince;
     private String dateBusinessSince;
     private String defaultLanguage;

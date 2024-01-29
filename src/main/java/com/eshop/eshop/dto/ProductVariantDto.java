@@ -1,14 +1,12 @@
 package com.eshop.eshop.dto;
 
-import com.eshop.eshop.entity.AuditSection;
-import com.eshop.eshop.entity.product.ProductEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -23,4 +21,9 @@ public class ProductVariantDto {
     private String image;
     private Date dateAvailable;
     private boolean available;
+    private boolean deleted;
+    private Date dateCreated;
+    private Date dateModified;
+    private String createdBy;
+    private String modifiedBy;
 }

@@ -4,12 +4,14 @@ import com.eshop.eshop.dto.ProductDto;
 import com.eshop.eshop.entity.ManufacturerEntity;
 import com.eshop.eshop.entity.MerchantStoreEntity;
 import com.eshop.eshop.entity.product.ProductEntity;
-import com.eshop.eshop.entity.product.variant.ProductVariant;
 import com.eshop.eshop.exception.ServiceException;
 import com.eshop.eshop.mapper.ManufacturerMapper;
 import com.eshop.eshop.mapper.MerchantMapper;
 import com.eshop.eshop.mapper.ProductMapper;
+import com.eshop.eshop.repository.ManufacturerRepository;
+import com.eshop.eshop.repository.MerchantRepository;
 import com.eshop.eshop.repository.ProductRepository;
+import com.eshop.eshop.service.AuthService;
 import com.eshop.eshop.service.ManufacturerService;
 import com.eshop.eshop.service.MerchantService;
 import com.eshop.eshop.service.ProductService;
@@ -29,28 +31,47 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private ManufacturerService manufacturerService;
+    private ManufacturerRepository manufacturerRepository;
+
+    @Autowired
+    private MerchantRepository merchantRepository;
 
     @Autowired
     private MerchantService merchantService;
 
+    @Autowired
+    private AuthService authService;
+
+    @Autowired
     private ProductMapper productMapper;
 
+    @Autowired
     private ManufacturerMapper manufacturerMapper;
+
+    @Autowired
     private MerchantMapper merchantMapper;
 
     @Override
     public ProductDto createProduct(ProductDto product) {
 
-        ManufacturerEntity manufacturer = manufacturerService.getManufacturerById(product.getManufacturer().getId());
+        ManufacturerEntity manufacturer = manufacturerRepository.findById(product.getManufacturer().getId()).orElseThrow(()-> new ServiceException(HttpStatus.NOT_FOUND,"Manufacturer was not found given id !."));
+
         MerchantStoreEntity merchantStore = merchantMapper.convertToEntity(merchantService.getMerchantById(product.getMerchantStore().getId()));
 
+
+        product.setCreatedBy(authService.getAuthenticatedUsername());
         product.setManufacturer(manufacturerMapper.convertToDto(manufacturer));
         product.setMerchantStore(merchantMapper.convertToDto(merchantStore));
 
-        ProductEntity newProduct = productMapper.convertToEntity(product);
+        ProductEntity newProduct = productRepository.save(productMapper.convertToEntity(product));
 
-        return productMapper.convertToDto(productRepository.save(newProduct));
+        List<ProductEntity> products = manufacturer.getProducts();
+        products.add(newProduct);
+        manufacturer.setProducts(products);
+
+        manufacturerRepository.save(manufacturer);
+
+        return productMapper.convertToDto(newProduct);
     }
 
     @Override
@@ -69,27 +90,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto updateProduct(long id, ProductDto productDto) {
-        ProductEntity toUpdate = productRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
 
-        ManufacturerEntity manufacturer = manufacturerService.getManufacturerById(productDto.getManufacturer().getId());
+        ProductEntity product = productRepository.findById(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
 
-        toUpdate.setProductQuantity(productDto.getProductQuantity());
-        toUpdate.setProductDateAvailable(productDto.getProductDateAvailable());
-        toUpdate.setAvailable(productDto.getAvailable());
-        toUpdate.setCollection(productDto.getCollection());
-        toUpdate.setDescription(productDto.getDescription());
-        toUpdate.setPrice(productDto.getPrice());
-        toUpdate.setProductQuantityOrderMax(productDto.getProductQuantityOrderMax());
-        toUpdate.setProductQuantityOrderMin(productDto.getProductQuantityOrderMin());
-        toUpdate.setRegion(productDto.getRegion());
-        toUpdate.setSku(productDto.getSku());
-        toUpdate.setThumbnail(productDto.getThumbnail());
-        toUpdate.setTitle(productDto.getTitle());
-        toUpdate.setManufacturer(manufacturer);
+        ManufacturerEntity manufacturer = manufacturerRepository.findById(productDto.getManufacturer().getId()).orElseThrow(()-> new ServiceException(HttpStatus.NOT_FOUND,"Manufacturer was not found given id !."));
 
-        ProductEntity updatedProduct = productRepository.save((toUpdate));
+        MerchantStoreEntity merchantStore = merchantRepository.findById(productDto.getMerchantStore().getId()).orElseThrow(()-> new ServiceException(HttpStatus.NOT_FOUND,"Merchant store was not found given id !."));
 
-        return productMapper.convertToDto(updatedProduct);
+        ProductEntity updatedProduct = productMapper.convertToEntity(productDto);
+
+        updatedProduct.setManufacturer(manufacturer);
+        updatedProduct.setMerchantStore(merchantStore);
+        updatedProduct.setModifiedBy(authService.getAuthenticatedUsername());
+
+        return productMapper.convertToDto(productRepository.save(updatedProduct));
     }
 
     @Override

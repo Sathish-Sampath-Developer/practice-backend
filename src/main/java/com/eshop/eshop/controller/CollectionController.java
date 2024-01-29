@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/private/category")
+@RequestMapping("/api/v1/private/collections")
 @AllArgsConstructor
-@Tag(name = "Category Controller", description = "This url for CRUD of Category")
+@Tag(name = "Collection Controller", description = "This url for CRUD of Category")
 public class CollectionController {
 
     @Autowired

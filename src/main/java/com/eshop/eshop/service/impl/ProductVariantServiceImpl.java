@@ -7,6 +7,7 @@ import com.eshop.eshop.exception.ServiceException;
 import com.eshop.eshop.mapper.ProductVariantMapper;
 import com.eshop.eshop.repository.ProductRepository;
 import com.eshop.eshop.repository.ProductVariantRepository;
+import com.eshop.eshop.service.AuthService;
 import com.eshop.eshop.service.ProductVariantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,10 @@ public class ProductVariantServiceImpl implements ProductVariantService {
     @Autowired
     private ProductVariantRepository productVariantRepository;
 
+    @Autowired
+    private AuthService authService;
+
+    @Autowired
     private ProductVariantMapper productVariantMapper;
 
     @Override
@@ -33,6 +38,7 @@ public class ProductVariantServiceImpl implements ProductVariantService {
         ProductVariant productVariant = productVariantMapper.convertToEntity(productVariantDto);
 
         productVariant.setProduct(product);
+        productVariant.setCreatedBy(authService.getAuthenticatedUsername());
 
         return productVariantMapper.convertToDto(productVariantRepository.save(productVariant));
     }
@@ -73,6 +79,7 @@ public class ProductVariantServiceImpl implements ProductVariantService {
         updateProductVariant.setColor(productVariant.getColor());
         updateProductVariant.setDateAvailable(productVariant.getDateAvailable());
         updateProductVariant.setImage(productVariant.getImage());
+        updateProductVariant.setModifiedBy(authService.getAuthenticatedUsername());
 
         return productVariantMapper.convertToDto(productVariantRepository.save(updateProductVariant));
     }
@@ -80,14 +87,15 @@ public class ProductVariantServiceImpl implements ProductVariantService {
     @Override
     public void deleteProductVariant(Long productId, Long productVariantId) {
         ProductEntity product = productRepository.findByIdAndDeletedFalse(productId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
-        product.setDeleted(true);
 
         ProductVariant productVariant = productVariantRepository.findByIdAndDeletedFalse(productVariantId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product variant was not found given id!."));
 
         if (!productVariant.getProduct().getId().equals(product.getId())) {
             throw new ServiceException(HttpStatus.BAD_REQUEST, "Product variant doesn't belongs to product!.");
         }
+
         productVariant.setDeleted(true);
+
         productVariantRepository.save(productVariant);
     }
 }

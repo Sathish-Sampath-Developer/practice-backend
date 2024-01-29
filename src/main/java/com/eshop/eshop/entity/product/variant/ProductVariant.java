@@ -1,12 +1,13 @@
 package com.eshop.eshop.entity.product.variant;
 
-import com.eshop.eshop.entity.AuditSection;
 import com.eshop.eshop.entity.product.ProductEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -17,13 +18,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class ProductVariant {
 
+    @Getter
+    @Setter
     @Id
     @Column(name = "PRODUCT_VARIANT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Embedded
-    private AuditSection auditSection = new AuditSection();
 
     @Setter
     @Getter
@@ -65,14 +65,35 @@ public class ProductVariant {
     @JoinColumn(name = "PRODUCT_ID", nullable = false)
     private ProductEntity product;
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-        this.available = (quantity > 0);
-    }
-
     @Column(name = "DELETED")
     @Setter
     @Getter
     private boolean deleted = false;
 
+    @CreationTimestamp
+    @Getter
+    @Setter
+    @Column(name = "DATE_CREATED")
+    private Date dateCreated;
+
+    @UpdateTimestamp
+    @Getter
+    @Setter
+    @Column(name = "DATE_MODIFIED")
+    private Date dateModified;
+
+    @Getter
+    @Setter
+    @Column(name = "CREATED_BY", length = 60)
+    private String createdBy;
+
+    @Getter
+    @Setter
+    @Column(name = "MODIFIED_BY", length = 60)
+    private String modifiedBy;
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+        this.available = (quantity > 0);
+    }
 }

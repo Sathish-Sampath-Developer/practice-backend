@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
     private CreatePasswordResetToken createPasswordResetToken;
 
     @Override
-    public SuccessResponse login(LoginDto loginDto) {
+    public JwtResponse login(LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getPhoneOrEmail(), loginDto.getPassword()));
 
@@ -51,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
 
         String token = jwtService.generateToken(authentication);
 
-        return new SuccessResponse(true, "Your are login was successful!", token);
+        return new JwtResponse("Your are login was successful!", token);
     }
 
     @Override
@@ -95,20 +96,45 @@ public class AuthServiceImpl implements AuthService {
 
         userRepository.save(user);
 
-        return new SuccessResponse(true, "Password reset token issued successfully!", passwordResetToken);
+        return new SuccessResponse(true, "Password reset token issued successfully!");
     }
 
     @Override
     public SuccessResponse resetPassword(String passwordResetToken, ResetPasswordDto resetPasswordDto) {
-        UserEntity user = userRepository.findByPasswordResetTokenAndPasswordResetTokenExpiresInAfter(createPasswordResetToken.hashToken(passwordResetToken), LocalDateTime.now()).orElseThrow(()->new ServiceException(HttpStatus.NOT_FOUND,"Invalid or expired password reset token!."));
+        UserEntity user = userRepository.findByPasswordResetTokenAndPasswordResetTokenExpiresInAfter(createPasswordResetToken.hashToken(passwordResetToken), LocalDateTime.now()).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Invalid or expired password reset token!."));
 
         user.setPassword(passwordEncoder.encode(resetPasswordDto.getNewPassword()));
+
         user.setPasswordResetToken(null);
         user.setPasswordResetToken(null);
 
         userRepository.save(user);
 
-        return new SuccessResponse(true,"Your password was updated successfully!");
+        return new SuccessResponse(true, "Your password was updated successfully!");
     }
+    @Override
+    public String getAuthenticatedUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof User) {
+                return ((User) principal).getUsername();
+            }
+        }
+        return null;
+    }
+
+//    @Override
+//    public UserEntity getAuthenticatedUser() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication != null && authentication.isAuthenticated()) {
+//            Object principal = authentication.getPrincipal();
+//            if (principal instanceof User) {
+//                return userRepository.findByPhoneOrEmail(((User) principal).getUsername(),((User) principal).getUsername()).orElse(null);
+//            }
+//        }
+//        return null;
+//    }
+
 
 }
