@@ -40,9 +40,6 @@ public class ShoppingCartItemEntity {
     @Column(name = "SUB_TOTAL", nullable = true)
     private double subTotal = 0;
 
-    @Column(name = "DELETED")
-    private boolean deleted = false;
-
     @CreationTimestamp
     @Column(name = "DATE_CREATED")
     private Date dateCreated;
@@ -64,7 +61,6 @@ public class ShoppingCartItemEntity {
         this.sku = sku;
         this.itemPrice = itemPrice;
         this.subTotal = itemPrice * quantity;
-        this.deleted = deleted;
     }
 }
 

@@ -1,6 +1,7 @@
 package com.eshop.eshop.controller;
 
 import com.eshop.eshop.dto.merchant.MerchantStoreDto;
+import com.eshop.eshop.dto.merchant.MerchantStoreWithProductsDto;
 import com.eshop.eshop.service.MerchantService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -19,22 +20,22 @@ public class MerchantController {
     private MerchantService merchantService;
 
     @PostMapping
-    public ResponseEntity<MerchantStoreDto> createMerchant(@RequestBody MerchantStoreDto merchantStoreDto) {
+    public ResponseEntity<MerchantStoreWithProductsDto> createMerchant(@RequestBody MerchantStoreDto merchantStoreDto) {
         return new ResponseEntity<>(merchantService.createMerchant(merchantStoreDto), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<MerchantStoreDto>> getMerchantList() {
+    public ResponseEntity<List<MerchantStoreWithProductsDto>> getMerchantList() {
         return new ResponseEntity<>(merchantService.getMerchantList(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MerchantStoreDto> getMerchantById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<MerchantStoreWithProductsDto> getMerchantById(@PathVariable(name = "id") Long id) {
         return new ResponseEntity<>(merchantService.getMerchantById(id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MerchantStoreDto> updateMerchant(@PathVariable(name = "id") Long id, @RequestBody MerchantStoreDto merchantStoreDto) {
+    public ResponseEntity<MerchantStoreWithProductsDto> updateMerchant(@PathVariable(name = "id") Long id, @RequestBody MerchantStoreDto merchantStoreDto) {
         return new ResponseEntity<>(merchantService.updateMerchant(id, merchantStoreDto), HttpStatus.ACCEPTED);
     }
 

@@ -30,7 +30,42 @@ public class ProductMapper {
 
 
     public ProductEntity convertToEntity(ProductDto productDto) {
-        return mapper.map(productDto, ProductEntity.class);
+        ProductEntity productEntity = new ProductEntity();
+
+        productEntity.setId(productDto.getId());
+        productEntity.setTitle(productDto.getTitle());
+        productEntity.setDescription(productDto.getDescription());
+        productEntity.setPrice(productDto.getPrice());
+        productEntity.setSku(productDto.getSku());
+        productEntity.setThumbnail(productDto.getThumbnail());
+        productEntity.setLength(productDto.getLength());
+        productEntity.setWidth(productDto.getWidth());
+        productEntity.setHeight(productDto.getHeight());
+        productEntity.setWeight(productDto.getWeight());
+        productEntity.setProductQuantity(productDto.getProductQuantity());
+        productEntity.setProductDateAvailable(productDto.getProductDateAvailable());
+        productEntity.setRegion(productDto.getRegion());
+        productEntity.setAvailable(productDto.getAvailable());
+        productEntity.setProductQuantityOrderMin(productDto.getProductQuantityOrderMin());
+        productEntity.setProductQuantityOrderMax(productDto.getProductQuantityOrderMax());
+        productEntity.setCollection(productDto.getCollection());
+        productEntity.setSeUrl(productDto.getSeUrl());
+        productEntity.setMetaTagTitle(productDto.getMetaTagTitle());
+        productEntity.setMetaTagKeywords(productDto.getMetaTagKeywords());
+        productEntity.setMetaTagDescription(productDto.getMetaTagDescription());
+
+        if (productDto.getVariants() != null) {
+            productEntity.setVariants(productDto.getVariants().stream().map(productVariantMapper::convertToEntity).collect(Collectors.toSet()));
+        }
+
+        productEntity.setManufacturer(manufacturerMapper.convertToEntity(productDto.getManufacturer()));
+        productEntity.setMerchantStore(merchantMapper.convertToEntity(productDto.getMerchantStore()));
+        productEntity.setDeleted(productDto.isDeleted());
+        productEntity.setDateCreated(productDto.getDateCreated());
+        productEntity.setDateModified(productDto.getDateModified());
+        productEntity.setCreatedBy(productDto.getCreatedBy());
+        productEntity.setModifiedBy(productDto.getModifiedBy());
+        return productEntity;
     }
 
     public ProductDto convertToDto(ProductEntity product) {
@@ -60,7 +95,7 @@ public class ProductMapper {
         productDto.setMetaTagDescription(product.getMetaTagDescription());
 
         if (product.getVariants() != null) {
-            productDto.setVariants(product.getVariants().stream().map(productVariant -> productVariantMapper.convertToDto(productVariant)).collect(Collectors.toSet()));
+            productDto.setVariants(product.getVariants().stream().map(productVariantMapper::convertToDto).collect(Collectors.toSet()));
         }
 
         productDto.setManufacturer(manufacturerMapper.convertToDto(product.getManufacturer()));

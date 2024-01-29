@@ -1,5 +1,6 @@
 package com.eshop.eshop.dto.merchant;
 
+import com.eshop.eshop.dto.product.ProductDtoWithoutMerchantAndManufacturer;
 import com.eshop.eshop.entity.product.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,15 +17,14 @@ import java.util.List;
 public class MerchantStoreWithProductsDto {
     private Long id;
     private Boolean retailer;
-    private List<ProductEntity> products;
     private String storeName;
     private String storePhone;
     private String address_line_one;
     private String address_line_two;
     private String storeCity;
-    private String state;
+    private String storeState;
     private String storePin;
-    private String country;
+    private String storeCountry;
     private String dateBusinessSince;
     private String defaultLanguage;
     private List<String> languages;
@@ -34,6 +34,7 @@ public class MerchantStoreWithProductsDto {
     private String storeLogo;
     private String currency;
     private boolean deleted;
+    private List<ProductDtoWithoutMerchantAndManufacturer> products;
     private Date dateCreated;
     private Date dateModified;
     private String createdBy;

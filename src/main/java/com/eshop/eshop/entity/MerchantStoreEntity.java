@@ -27,7 +27,7 @@ public class MerchantStoreEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MERCHANT_STORE_ID")
+    @Column(name = "MERCHANT_ID")
     private Long id;
 
     @Column(name = "IS_RETAILER")
@@ -55,7 +55,7 @@ public class MerchantStoreEntity {
     private String storeCity;
 
     @Column(name = "STORE_STATE")
-    private String state;
+    private String storeState;
 
     @NotEmpty
     @Column(name = "STORE_PIN", length = 15)
@@ -91,9 +91,6 @@ public class MerchantStoreEntity {
     @Column(name = "CURRENCY")
     private String currency;
 
-    @Column(name = "DELETED")
-    private boolean deleted = false;
-
     @CreationTimestamp
     @Column(name = "DATE_CREATED")
     private Date dateCreated;
@@ -107,5 +104,4 @@ public class MerchantStoreEntity {
 
     @Column(name = "MODIFIED_BY", length = 60)
     private String modifiedBy;
-
 }

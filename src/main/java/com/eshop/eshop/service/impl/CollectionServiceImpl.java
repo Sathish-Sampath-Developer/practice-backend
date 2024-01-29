@@ -5,7 +5,6 @@ import com.eshop.eshop.exception.ServiceException;
 import com.eshop.eshop.repository.CollectionRepository;
 import com.eshop.eshop.service.CollectionService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +18,12 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Override
     public List<CollectionEntity> getListOfCollections() {
-        return collectionRepository.findByDeletedFalse();
+        return collectionRepository.findAll();
     }
 
     @Override
     public CollectionEntity getCollectionById(Long id) {
-        return collectionRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Collection was not found given id"));
+        return collectionRepository.findById(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Collection was not found given id"));
     }
 
     @Override
@@ -34,7 +33,8 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Override
     public CollectionEntity updateCollection(Long id, CollectionEntity collection) {
-        CollectionEntity updatedCollection = collectionRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Collection was not found given id"));
+
+        CollectionEntity updatedCollection = collectionRepository.findById(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Collection was not found given id"));
 
         updatedCollection.setCollectionStatus(collection.isCollectionStatus());
         updatedCollection.setTitle(collection.getTitle());
@@ -44,8 +44,9 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Override
     public void deleteCollection(Long id) {
-        CollectionEntity collection = collectionRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Collection was not found given id"));
-        collection.setDeleted(true);
-        collectionRepository.save(collection);
+
+        CollectionEntity collection = collectionRepository.findById(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Collection was not found given id"));
+
+        collectionRepository.delete(collection);
     }
 }

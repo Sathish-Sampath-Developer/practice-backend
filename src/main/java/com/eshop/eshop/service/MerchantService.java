@@ -1,17 +1,18 @@
 package com.eshop.eshop.service;
 
 import com.eshop.eshop.dto.merchant.MerchantStoreDto;
+import com.eshop.eshop.dto.merchant.MerchantStoreWithProductsDto;
 
 import java.util.List;
 
 public interface MerchantService {
-    MerchantStoreDto createMerchant(MerchantStoreDto merchantStoreDto);
+    MerchantStoreWithProductsDto createMerchant(MerchantStoreDto merchantStoreDto);
 
-    List<MerchantStoreDto> getMerchantList();
+    List<MerchantStoreWithProductsDto> getMerchantList();
 
-    MerchantStoreDto getMerchantById(Long id);
+    MerchantStoreWithProductsDto getMerchantById(Long id);
 
-    MerchantStoreDto updateMerchant(long id, MerchantStoreDto merchantStoreDto);
+    MerchantStoreWithProductsDto updateMerchant(long id, MerchantStoreDto merchantStoreDto);
 
     void deleteMerchant(long id);
 }

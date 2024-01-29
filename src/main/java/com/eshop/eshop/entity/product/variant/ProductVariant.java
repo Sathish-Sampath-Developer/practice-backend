@@ -65,11 +65,6 @@ public class ProductVariant {
     @JoinColumn(name = "PRODUCT_ID", nullable = false)
     private ProductEntity product;
 
-    @Column(name = "DELETED")
-    @Setter
-    @Getter
-    private boolean deleted = false;
-
     @CreationTimestamp
     @Getter
     @Setter

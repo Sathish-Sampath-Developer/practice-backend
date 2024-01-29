@@ -62,10 +62,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     @Override
     public void deleteManufacturer(Long id) {
 
-        ManufacturerEntity toDelete = manufacturerRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Manufacturer was not found given id"));
-
-        toDelete.setDeleted(true);
-
+        ManufacturerEntity toDelete = manufacturerRepository.findById(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Manufacturer was not found given id"));
         manufacturerRepository.delete(toDelete);
     }
 }

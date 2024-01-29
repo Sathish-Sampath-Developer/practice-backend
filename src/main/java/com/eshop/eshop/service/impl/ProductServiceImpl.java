@@ -12,10 +12,8 @@ import com.eshop.eshop.repository.ManufacturerRepository;
 import com.eshop.eshop.repository.MerchantRepository;
 import com.eshop.eshop.repository.ProductRepository;
 import com.eshop.eshop.service.AuthService;
-import com.eshop.eshop.service.MerchantService;
 import com.eshop.eshop.service.ProductService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
+
     private ProductRepository productRepository;
     private ManufacturerRepository manufacturerRepository;
     private MerchantRepository merchantRepository;
@@ -46,16 +45,12 @@ public class ProductServiceImpl implements ProductService {
 
         ProductEntity newProduct = productRepository.save(productMapper.convertToEntity(product));
 
-        List<ProductEntity> manufacturerProducts = manufacturer.getProducts();
         List<ProductEntity> merchantProducts = merchantStore.getProducts();
 
-        manufacturerProducts.add(newProduct);
         merchantProducts.add(newProduct);
 
-        manufacturer.setProducts(manufacturerProducts);
-        merchantStore.setProducts(manufacturerProducts);
+        merchantStore.setProducts(merchantProducts);
 
-        manufacturerRepository.save(manufacturer);
         merchantRepository.save(merchantStore);
 
         return productMapper.convertToDto(newProduct);
@@ -64,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> getProductList() {
 
-        List<ProductEntity> listOfTheProducts = productRepository.findByDeletedFalse();
+        List<ProductEntity> listOfTheProducts = productRepository.findAll();
 
         return listOfTheProducts.stream().map((product) -> productMapper.convertToDto(product)).collect(Collectors.toList());
     }
@@ -85,20 +80,40 @@ public class ProductServiceImpl implements ProductService {
 
         MerchantStoreEntity merchantStore = merchantRepository.findById(productDto.getMerchantStore().getId()).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Merchant store was not found given id !."));
 
-        ProductEntity updatedProduct = productMapper.convertToEntity(productDto);
+        product.setTitle(productDto.getTitle());
+        product.setDescription(productDto.getDescription());
+        product.setPrice(productDto.getPrice());
+        product.setSku(productDto.getSku());
+        product.setThumbnail(productDto.getThumbnail());
+        product.setLength(productDto.getLength());
+        product.setWidth(productDto.getWidth());
+        product.setHeight(productDto.getHeight());
+        product.setWeight(productDto.getWeight());
+        product.setProductQuantity(productDto.getProductQuantity());
+        product.setProductDateAvailable(productDto.getProductDateAvailable());
+        product.setRegion(productDto.getRegion());
+        product.setAvailable(productDto.getAvailable());
+        product.setProductQuantityOrderMin(productDto.getProductQuantityOrderMin());
+        product.setProductQuantityOrderMax(productDto.getProductQuantityOrderMax());
+        product.setCollection(productDto.getCollection());
+        product.setSeUrl(productDto.getSeUrl());
+        product.setMetaTagTitle(productDto.getMetaTagTitle());
+        product.setMetaTagKeywords(productDto.getMetaTagKeywords());
+        product.setMetaTagDescription(productDto.getMetaTagDescription());
+        product.setManufacturer(manufacturer);
+        product.setMerchantStore(merchantStore);
+        product.setDateCreated(productDto.getDateCreated());
+        product.setDateModified(productDto.getDateModified());
+        product.setCreatedBy(productDto.getCreatedBy());
+        product.setModifiedBy(authService.getAuthenticatedUsername());
 
-        updatedProduct.setManufacturer(manufacturer);
-        updatedProduct.setMerchantStore(merchantStore);
-        updatedProduct.setModifiedBy(authService.getAuthenticatedUsername());
-
-        return productMapper.convertToDto(productRepository.save(updatedProduct));
+        return productMapper.convertToDto(productRepository.save(product));
     }
 
     @Override
     public void deleteProduct(long id) {
-        ProductEntity product = productRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
-        product.setDeleted(true);
-        productRepository.save(product);
+        ProductEntity product = productRepository.findById(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
+        productRepository.delete(product);
     }
 
 }

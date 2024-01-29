@@ -28,7 +28,7 @@ public class ManufacturerWithProductsDto {
     private String pin;
     private List<String> orders;
     private boolean deleted;
-    private List<ProductDtoWithoutMerchantAndManufacturer> products;
+//    private List<ProductDtoWithoutMerchantAndManufacturer> products;
     private Date dateCreated;
     private Date dateModified;
     private String createdBy;

@@ -101,12 +101,9 @@ public class ProductEntity {
     @JoinColumn(name = "MANUFACTURER_ID", nullable = false)
     private ManufacturerEntity manufacturer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.REFRESH})
     @JoinColumn(name="MERCHANT_ID", nullable=false)
     private MerchantStoreEntity merchantStore;
-
-    @Column(name = "DELETED")
-    private boolean deleted = false;
 
     @CreationTimestamp
     @Column(name = "DATE_CREATED")

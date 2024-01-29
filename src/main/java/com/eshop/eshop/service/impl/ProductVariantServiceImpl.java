@@ -10,7 +10,6 @@ import com.eshop.eshop.repository.ProductVariantRepository;
 import com.eshop.eshop.service.AuthService;
 import com.eshop.eshop.service.ProductVariantService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class ProductVariantServiceImpl implements ProductVariantService {
     @Override
     public ProductVariantDto addVariantToProduct(Long id, ProductVariantDto productVariantDto) {
 
-        ProductEntity product = productRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found in given id!."));
+        ProductEntity product = productRepository.findById(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found in given id!."));
 
         ProductVariant productVariant = productVariantMapper.convertToEntity(productVariantDto);
 
@@ -39,16 +38,16 @@ public class ProductVariantServiceImpl implements ProductVariantService {
 
     @Override
     public List<ProductVariantDto> getListOfVariantByProductId(Long id) {
-        List<ProductVariant> listOfProductVariant = productVariantRepository.findByProductIdAndDeletedFalse(id);
+        List<ProductVariant> listOfProductVariant = productVariantRepository.findByProductId(id);
         return listOfProductVariant.stream().map((productVariant -> productVariantMapper.convertToDto(productVariant))).toList();
     }
 
     @Override
     public ProductVariantDto getListOfVariantByProductIdAndVariantId(Long productId, Long productVariantId) {
 
-        ProductEntity product = productRepository.findByIdAndDeletedFalse(productId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
+        ProductEntity product = productRepository.findById(productId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
 
-        ProductVariant productVariant = productVariantRepository.findByIdAndDeletedFalse(productVariantId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product variant was not found given id!."));
+        ProductVariant productVariant = productVariantRepository.findById(productVariantId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product variant was not found given id!."));
 
         if (!productVariant.getProduct().getId().equals(product.getId())) {
             throw new ServiceException(HttpStatus.BAD_REQUEST, "Product variant doesn't belongs to product!.");
@@ -60,9 +59,9 @@ public class ProductVariantServiceImpl implements ProductVariantService {
     @Override
     public ProductVariantDto updateProductVariant(Long productId, Long productVariantId, ProductVariantDto productVariant) {
 
-        ProductEntity product = productRepository.findByIdAndDeletedFalse(productId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
+        ProductEntity product = productRepository.findById(productId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
 
-        ProductVariant updateProductVariant = productVariantRepository.findByIdAndDeletedFalse(productVariantId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product variant was not found given id!."));
+        ProductVariant updateProductVariant = productVariantRepository.findById(productVariantId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product variant was not found given id!."));
 
         if (!updateProductVariant.getProduct().getId().equals(product.getId())) {
             throw new ServiceException(HttpStatus.BAD_REQUEST, "Product variant doesn't belongs to product!.");
@@ -80,16 +79,15 @@ public class ProductVariantServiceImpl implements ProductVariantService {
 
     @Override
     public void deleteProductVariant(Long productId, Long productVariantId) {
-        ProductEntity product = productRepository.findByIdAndDeletedFalse(productId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
 
-        ProductVariant productVariant = productVariantRepository.findByIdAndDeletedFalse(productVariantId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product variant was not found given id!."));
+        ProductEntity product = productRepository.findById(productId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product was not found given id!."));
+
+        ProductVariant productVariant = productVariantRepository.findById(productVariantId).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Product variant was not found given id!."));
 
         if (!productVariant.getProduct().getId().equals(product.getId())) {
             throw new ServiceException(HttpStatus.BAD_REQUEST, "Product variant doesn't belongs to product!.");
         }
 
-        productVariant.setDeleted(true);
-
-        productVariantRepository.save(productVariant);
+        productVariantRepository.delete(productVariant);
     }
 }

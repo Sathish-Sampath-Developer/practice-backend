@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MerchantRepository extends JpaRepository<MerchantStoreEntity,Long> {
-    List<MerchantStoreEntity> findByDeletedFalse();
-    Optional<MerchantStoreEntity> findByIdAndDeletedFalse(Long id);
+//    List<MerchantStoreEntity> findByDeletedFalse();
+//    Optional<MerchantStoreEntity> findByIdAndDeletedFalse(Long id);
 
 }

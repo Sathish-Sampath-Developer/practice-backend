@@ -23,9 +23,9 @@ public class MerchantStoreDto {
     private String address_line_one;
     private String address_line_two;
     private String storeCity;
-    private String state;
+    private String storeState;
     private String storePin;
-    private String country;
+    private String storeCountry;
     private String storeStateProvince;
     private String dateBusinessSince;
     private String defaultLanguage;

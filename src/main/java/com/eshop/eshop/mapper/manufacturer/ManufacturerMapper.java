@@ -40,7 +40,7 @@ public class ManufacturerMapper {
         manufacturerWithProductsDto.setPin(manufacturerEntity.getPin());
         manufacturerWithProductsDto.setOrders(manufacturerEntity.getOrders());
         manufacturerWithProductsDto.setDeleted(manufacturerEntity.isDeleted());
-        manufacturerWithProductsDto.setProducts(manufacturerEntity.getProducts().stream().map(product -> mapper.map(product, ProductDtoWithoutMerchantAndManufacturer.class)).toList());
+//        manufacturerWithProductsDto.setProducts(manufacturerEntity.getProducts().stream().map(product -> mapper.map(product, ProductDtoWithoutMerchantAndManufacturer.class)).toList());
         manufacturerWithProductsDto.setDateCreated(manufacturerEntity.getDateCreated());
         manufacturerWithProductsDto.setDateModified(manufacturerEntity.getDateModified());
         manufacturerWithProductsDto.setCreatedBy(manufacturerEntity.getCreatedBy());

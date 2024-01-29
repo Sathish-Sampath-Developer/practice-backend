@@ -26,7 +26,4 @@ public class CollectionEntity {
 
     @Column(name = "COLLECTION_STATUS")
     private boolean collectionStatus;
-
-    @Column(name = "DELETED")
-    private boolean deleted = false;
 }

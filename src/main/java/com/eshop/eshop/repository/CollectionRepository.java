@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CollectionRepository extends JpaRepository<CollectionEntity,Long> {
-    List<CollectionEntity> findByDeletedFalse();
-    Optional<CollectionEntity> findByIdAndDeletedFalse(Long id);
+//    List<CollectionEntity> findByDeletedFalse();
+//    Optional<CollectionEntity> findByIdAndDeletedFalse(Long id);
 }

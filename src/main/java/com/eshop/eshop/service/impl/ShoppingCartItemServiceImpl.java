@@ -5,7 +5,6 @@ import com.eshop.eshop.exception.ServiceException;
 import com.eshop.eshop.repository.ShoppingCartItemRepository;
 import com.eshop.eshop.service.ShoppingCartItemService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +41,6 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
     @Override
     public void removeCartItem(Long id) {
         ShoppingCartItemEntity shoppingCartItemEntity = shoppingCartItemRepository.findById(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Shopping Cart item is does not exists in given id!."));
-        shoppingCartItemEntity.setDeleted(true);
-        shoppingCartItemRepository.save(shoppingCartItemEntity);
+        shoppingCartItemRepository.delete(shoppingCartItemEntity);
     }
 }

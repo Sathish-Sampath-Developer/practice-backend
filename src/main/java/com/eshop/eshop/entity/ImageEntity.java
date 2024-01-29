@@ -23,10 +23,4 @@ public class ImageEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "code", nullable = false)
-    private String code;
-
-    @Column(name = "DELETED")
-    private boolean deleted = false;
-
 }
