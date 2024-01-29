@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,5 +41,19 @@ public class UserEntity {
     private String passwordResetToken;
 
     private LocalDateTime passwordResetTokenExpiresIn;
+
+    @CreationTimestamp
+    @Column(name = "DATE_CREATED")
+    private Date dateCreated;
+
+    @UpdateTimestamp
+    @Column(name = "DATE_MODIFIED")
+    private Date dateModified;
+
+    @Column(name = "CREATED_BY", length = 60)
+    private String createdBy;
+
+    @Column(name = "MODIFIED_BY", length = 60)
+    private String modifiedBy;
 
 }

@@ -1,10 +1,13 @@
-package com.eshop.eshop.dto;
+package com.eshop.eshop.dto.manufacturer;
 
+import com.eshop.eshop.dto.product.ProductDto;
+import com.eshop.eshop.dto.product.ProductDtoWithoutMerchantAndManufacturer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -25,5 +28,9 @@ public class ManufacturerWithProductsDto {
     private String pin;
     private List<String> orders;
     private boolean deleted;
-    private List<ProductDto> products;
+    private List<ProductDtoWithoutMerchantAndManufacturer> products;
+    private Date dateCreated;
+    private Date dateModified;
+    private String createdBy;
+    private String modifiedBy;
 }

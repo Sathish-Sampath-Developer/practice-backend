@@ -1,10 +1,11 @@
 package com.eshop.eshop.service.impl;
 
-import com.eshop.eshop.dto.MerchantStoreDto;
+import com.eshop.eshop.dto.merchant.MerchantStoreDto;
 import com.eshop.eshop.entity.MerchantStoreEntity;
 import com.eshop.eshop.exception.ServiceException;
-import com.eshop.eshop.mapper.MerchantMapper;
+import com.eshop.eshop.mapper.merchant.MerchantMapper;
 import com.eshop.eshop.repository.MerchantRepository;
+import com.eshop.eshop.service.AuthService;
 import com.eshop.eshop.service.MerchantService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +19,23 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MerchantServiceImpl implements MerchantService {
 
-    @Autowired
-    private MerchantRepository merchantRepository;
-
-    private MerchantMapper mapper;
+    private final MerchantRepository merchantRepository;
+    private final AuthService authService;
+    private final MerchantMapper mapper;
 
     @Override
     public MerchantStoreDto createMerchant(MerchantStoreDto merchantDto) {
-        MerchantStoreEntity merchantStore = merchantRepository.save(mapper.convertToEntity(merchantDto));
-        return mapper.convertToDto(merchantStore);
+        MerchantStoreEntity merchantStore = mapper.convertToEntity(merchantDto);
+
+        merchantStore.setCreatedBy(authService.getAuthenticatedUsername());
+
+        return mapper.convertToDto(merchantRepository.save(merchantStore));
     }
 
     @Override
     public List<MerchantStoreDto> getMerchantList() {
         List<MerchantStoreEntity> listOfMerchant = merchantRepository.findByDeletedFalse();
-        return listOfMerchant.stream().map((store) -> mapper.convertToDto(store)).collect(Collectors.toList());
+        return listOfMerchant.stream().map(mapper::convertToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -45,9 +48,11 @@ public class MerchantServiceImpl implements MerchantService {
     public MerchantStoreDto updateMerchant(long id, MerchantStoreDto merchantStore) {
         MerchantStoreEntity toUpdate = merchantRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new ServiceException(HttpStatus.NOT_FOUND, "Merchant was not found in given id"));
 
-        MerchantStoreEntity updatedMerchant = merchantRepository.save(mapper.convertToEntity(merchantStore));
+        MerchantStoreEntity updatedMerchant = mapper.convertToEntity(merchantStore);
 
-        return mapper.convertToDto(updatedMerchant);
+        updatedMerchant.setModifiedBy(authService.getAuthenticatedUsername());
+
+        return mapper.convertToDto( merchantRepository.save(updatedMerchant));
     }
 
     @Override

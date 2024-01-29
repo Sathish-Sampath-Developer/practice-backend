@@ -1,4 +1,4 @@
-package com.eshop.eshop.dto;
+package com.eshop.eshop.dto.product;
 
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;

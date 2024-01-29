@@ -1,18 +1,11 @@
-package com.eshop.eshop.dto;
+package com.eshop.eshop.dto.product;
 
-import com.eshop.eshop.constants.SchemaConstant;
-import com.eshop.eshop.entity.ManufacturerEntity;
-import com.eshop.eshop.entity.MerchantStoreEntity;
-import com.eshop.eshop.entity.product.variant.ProductVariant;
-import jakarta.persistence.*;
+import com.eshop.eshop.dto.manufacturer.ManufacturerDto;
+import com.eshop.eshop.dto.merchant.MerchantStoreDto;
 import lombok.*;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor

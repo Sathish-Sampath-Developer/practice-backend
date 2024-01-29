@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
 
-    @Autowired
     private ShoppingCartItemRepository shoppingCartItemRepository;
 
     @Override

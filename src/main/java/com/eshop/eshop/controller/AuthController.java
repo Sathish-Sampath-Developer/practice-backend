@@ -1,9 +1,10 @@
 package com.eshop.eshop.controller;
 
 import com.eshop.eshop.dto.*;
+import com.eshop.eshop.dto.auth.*;
 import com.eshop.eshop.service.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/auth")
 @Tag(name = "Auth Controller", description = "This url for Authenticate Users.")
+@AllArgsConstructor
 public class AuthController {
 
-    @Autowired
     private AuthService authService;
 
     @PostMapping("/login")

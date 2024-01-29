@@ -1,15 +1,14 @@
 package com.eshop.eshop.service;
 
-import com.eshop.eshop.dto.ManufacturerDto;
-import com.eshop.eshop.dto.ManufacturerWithProductsDto;
-import com.eshop.eshop.entity.ManufacturerEntity;
+import com.eshop.eshop.dto.manufacturer.ManufacturerDto;
+import com.eshop.eshop.dto.manufacturer.ManufacturerWithProductsDto;
 
 import java.util.List;
 
 public interface ManufacturerService {
     List<ManufacturerWithProductsDto> getAllManufacturer();
-    ManufacturerDto getManufacturerById(Long id);
-    ManufacturerDto createManufacturer(ManufacturerDto manufacturerDto);
-    ManufacturerDto updateManufacturer(Long id, ManufacturerDto manufacturerDto);
+    ManufacturerWithProductsDto getManufacturerById(Long id);
+    ManufacturerWithProductsDto createManufacturer(ManufacturerDto manufacturerDto);
+    ManufacturerWithProductsDto updateManufacturer(Long id, ManufacturerDto manufacturerDto);
     void deleteManufacturer(Long id);
 }

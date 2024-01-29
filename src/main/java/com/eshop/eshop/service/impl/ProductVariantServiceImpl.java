@@ -1,14 +1,15 @@
 package com.eshop.eshop.service.impl;
 
-import com.eshop.eshop.dto.ProductVariantDto;
+import com.eshop.eshop.dto.product.ProductVariantDto;
 import com.eshop.eshop.entity.product.ProductEntity;
 import com.eshop.eshop.entity.product.variant.ProductVariant;
 import com.eshop.eshop.exception.ServiceException;
-import com.eshop.eshop.mapper.ProductVariantMapper;
+import com.eshop.eshop.mapper.product.ProductVariantMapper;
 import com.eshop.eshop.repository.ProductRepository;
 import com.eshop.eshop.repository.ProductVariantRepository;
 import com.eshop.eshop.service.AuthService;
 import com.eshop.eshop.service.ProductVariantService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,18 +17,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ProductVariantServiceImpl implements ProductVariantService {
-
-    @Autowired
     private ProductRepository productRepository;
-
-    @Autowired
     private ProductVariantRepository productVariantRepository;
-
-    @Autowired
     private AuthService authService;
-
-    @Autowired
     private ProductVariantMapper productVariantMapper;
 
     @Override

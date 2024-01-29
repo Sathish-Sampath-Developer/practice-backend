@@ -1,6 +1,6 @@
 package com.eshop.eshop.service;
 
-import com.eshop.eshop.dto.MerchantStoreDto;
+import com.eshop.eshop.dto.merchant.MerchantStoreDto;
 
 import java.util.List;
 

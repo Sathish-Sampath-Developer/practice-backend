@@ -1,4 +1,4 @@
-package com.eshop.eshop.dto;
+package com.eshop.eshop.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ForgotPasswordDto {
+public class LoginDto {
     private String phoneOrEmail;
+    private String password;
 }

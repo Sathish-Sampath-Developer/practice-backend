@@ -1,6 +1,7 @@
 package com.eshop.eshop.entity;
 
 
+import com.eshop.eshop.entity.product.ProductEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -8,9 +9,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,14 +33,12 @@ public class MerchantStoreEntity {
     @Column(name = "IS_RETAILER")
     private Boolean retailer = false;
 
+    @OneToMany(mappedBy = "merchantStore", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductEntity> products = new ArrayList<>();
+
     @NotEmpty
     @Column(name = "STORE_NAME", nullable = false, length = 100)
     private String storeName;
-
-    @NotEmpty
-    @Pattern(regexp = "^[a-zA-Z0-9_]*$")
-    @Column(name = "STORE_CODE", nullable = false, unique = true, length = 100)
-    private String code;
 
     @NotEmpty
     @Column(name = "STORE_PHONE", length = 50)
@@ -61,9 +63,6 @@ public class MerchantStoreEntity {
 
     @Column(name = "COUNTRY")
     private String country;
-
-    @Column(name = "STORE_STATE_PROV", length = 100)
-    private String storeStateProvince;
 
     @Column(name = "DATE_BUSINESS_SINCE")
     private String dateBusinessSince;
@@ -92,10 +91,21 @@ public class MerchantStoreEntity {
     @Column(name = "CURRENCY")
     private String currency;
 
-    @Column(name = "CURRENCY_FORMAT_NATIONAL")
-    private boolean currencyFormatNational;
-
     @Column(name = "DELETED")
     private boolean deleted = false;
+
+    @CreationTimestamp
+    @Column(name = "DATE_CREATED")
+    private Date dateCreated;
+
+    @UpdateTimestamp
+    @Column(name = "DATE_MODIFIED")
+    private Date dateModified;
+
+    @Column(name = "CREATED_BY", length = 60)
+    private String createdBy;
+
+    @Column(name = "MODIFIED_BY", length = 60)
+    private String modifiedBy;
 
 }

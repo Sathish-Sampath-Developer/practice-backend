@@ -1,4 +1,4 @@
-package com.eshop.eshop.dto;
+package com.eshop.eshop.dto.merchant;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -36,4 +37,8 @@ public class MerchantStoreDto {
     private String currency;
     private boolean currencyFormatNational;
     private boolean deleted;
+    private Date dateCreated;
+    private Date dateModified;
+    private String createdBy;
+    private String modifiedBy;
 }

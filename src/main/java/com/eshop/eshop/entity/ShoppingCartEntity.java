@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -56,4 +58,18 @@ public class ShoppingCartEntity {
 
     @Column(name = "DELETED")
     private boolean deleted = false;
+
+    @CreationTimestamp
+    @Column(name = "DATE_CREATED")
+    private Date dateCreated;
+
+    @UpdateTimestamp
+    @Column(name = "DATE_MODIFIED")
+    private Date dateModified;
+
+    @Column(name = "CREATED_BY", length = 60)
+    private String createdBy;
+
+    @Column(name = "MODIFIED_BY", length = 60)
+    private String modifiedBy;
 }

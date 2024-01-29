@@ -1,10 +1,9 @@
 package com.eshop.eshop.controller;
 
-import com.eshop.eshop.dto.ProductVariantDto;
+import com.eshop.eshop.dto.product.ProductVariantDto;
 import com.eshop.eshop.service.ProductVariantService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ import java.util.List;
 @Tag(name = "Product Variant Controller", description = "This url for CRUD of Products variant")
 public class ProductVariantController {
 
-    @Autowired
     private ProductVariantService productVariantService;
 
     @PostMapping

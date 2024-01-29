@@ -7,7 +7,6 @@ import com.eshop.eshop.repository.ShoppingCartItemRepository;
 import com.eshop.eshop.repository.ShoppingCartRepository;
 import com.eshop.eshop.service.ShoppingCartService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +14,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
-    @Autowired
     private ShoppingCartRepository shoppingCartRepository;
-
-    @Autowired
     private ShoppingCartItemRepository shoppingCartItemRepository;
 
     @Override
@@ -28,7 +24,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCartEntity existingShoppingCart = shoppingCartRepository.findByCustomerId(8L).orElse(null);
 
         if (existingShoppingCart != null) {
-            ShoppingCartItemEntity item = populateShoppingCartItem(cartItem,existingShoppingCart);
+            ShoppingCartItemEntity item = populateShoppingCartItem(cartItem, existingShoppingCart);
 
             existingShoppingCart.getLineItems().add(item);
 
@@ -42,7 +38,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCartItemEntity populateShoppingCartItem(ShoppingCartItemEntity item,ShoppingCartEntity shoppingCart) throws ServiceException {
+    public ShoppingCartItemEntity populateShoppingCartItem(ShoppingCartItemEntity item, ShoppingCartEntity shoppingCart) throws ServiceException {
 
         item.setItemPrice(item.getItemPrice());
         item.setProductId(item.getProductId());

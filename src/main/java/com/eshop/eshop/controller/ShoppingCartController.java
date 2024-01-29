@@ -5,7 +5,6 @@ import com.eshop.eshop.entity.ShoppingCartItemEntity;
 import com.eshop.eshop.service.ShoppingCartService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class ShoppingCartController {
 
-    @Autowired
+
     private ShoppingCartService shoppingCartService;
 
     @PostMapping("add-to-cart")

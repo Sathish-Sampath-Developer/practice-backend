@@ -2,6 +2,7 @@ package com.eshop.eshop.service.impl;
 
 import com.eshop.eshop.Utils.CreatePasswordResetToken;
 import com.eshop.eshop.dto.*;
+import com.eshop.eshop.dto.auth.*;
 import com.eshop.eshop.entity.RoleEntity;
 import com.eshop.eshop.entity.UserEntity;
 import com.eshop.eshop.exception.ServiceException;
@@ -9,6 +10,7 @@ import com.eshop.eshop.repository.RoleRepository;
 import com.eshop.eshop.repository.UserRepository;
 import com.eshop.eshop.service.AuthService;
 import com.eshop.eshop.service.JwtService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,24 +25,14 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 @Service
+@AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private RoleRepository roleRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
     private JwtService jwtService;
-
-    @Autowired
     private CreatePasswordResetToken createPasswordResetToken;
 
     @Override

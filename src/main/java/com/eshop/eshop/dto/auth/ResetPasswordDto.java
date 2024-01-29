@@ -1,4 +1,4 @@
-package com.eshop.eshop.dto;
+package com.eshop.eshop.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

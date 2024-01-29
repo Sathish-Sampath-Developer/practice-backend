@@ -1,8 +1,6 @@
 package com.eshop.eshop.service;
 
-import com.eshop.eshop.dto.ProductDto;
-import com.eshop.eshop.dto.ProductVariantDto;
-import com.eshop.eshop.entity.product.variant.ProductVariant;
+import com.eshop.eshop.dto.product.ProductVariantDto;
 
 import java.util.List;
 

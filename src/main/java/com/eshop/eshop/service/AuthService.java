@@ -2,6 +2,7 @@ package com.eshop.eshop.service;
 
 
 import com.eshop.eshop.dto.*;
+import com.eshop.eshop.dto.auth.*;
 
 public interface AuthService {
 

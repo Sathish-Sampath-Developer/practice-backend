@@ -1,4 +1,4 @@
-package com.eshop.eshop.dto;
+package com.eshop.eshop.dto.manufacturer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -29,4 +32,8 @@ public class ManufacturerDto {
     private String pin;
     private List<String> orders;
     private boolean deleted;
+    private Date dateCreated;
+    private Date dateModified;
+    private String createdBy;
+    private String modifiedBy;
 }
