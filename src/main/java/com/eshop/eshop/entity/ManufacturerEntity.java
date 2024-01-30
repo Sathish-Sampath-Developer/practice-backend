@@ -26,8 +26,8 @@ public class ManufacturerEntity {
     @Column(name = "MANUFACTURER_ID")
     private Long id;
 
-//    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<ProductEntity> products = new ArrayList<>();
+    @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductEntity> products = new ArrayList<>();
 
     @Column(name = "MANUFACTURER_IMAGE")
     private String manufacturer_image;
@@ -58,9 +58,6 @@ public class ManufacturerEntity {
 
     @Column(name = "PIN")
     private String pin;
-
-    @Column(name = "ORDERS")
-    private List<String> orders;
 
     @CreationTimestamp
     @Column(name = "DATE_CREATED")

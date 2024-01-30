@@ -46,7 +46,7 @@ public class MerchantMapper {
         merchantStoreDto.setStoreEmailAddress(merchantStore.getStoreEmailAddress());
         merchantStoreDto.setStoreLogo(merchantStore.getStoreLogo());
         merchantStoreDto.setCurrency(merchantStore.getCurrency());
-        merchantStoreDto.setDeleted(merchantStore.isDeleted());
+//        merchantStoreDto.setDeleted(merchantStore.isDeleted());
         merchantStoreDto.setProducts(merchantStore.getProducts().stream().map(productEntity -> mapper.map(productEntity, ProductDtoWithoutMerchantAndManufacturer.class)).toList());
         merchantStoreDto.setDateCreated(merchantStore.getDateCreated());
         merchantStoreDto.setDateModified(merchantStore.getDateModified());

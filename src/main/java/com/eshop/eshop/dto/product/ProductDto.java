@@ -37,7 +37,7 @@ public class ProductDto {
     private Set<ProductVariantDto> variants;
     private ManufacturerDto manufacturer;
     private MerchantStoreDto merchantStore;
-    private boolean deleted;
+//    private boolean deleted;
     private Date dateCreated;
     private Date dateModified;
     private String createdBy;

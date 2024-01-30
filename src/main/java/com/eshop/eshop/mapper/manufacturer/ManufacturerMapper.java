@@ -7,12 +7,14 @@ import com.eshop.eshop.entity.ManufacturerEntity;
 import com.eshop.eshop.mapper.product.ProductMapper;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
 public class ManufacturerMapper {
 
+//    @Autowired
     private final ModelMapper mapper;
 
     public ManufacturerEntity convertToEntity(ManufacturerDto manufacturerDto) {
@@ -38,9 +40,9 @@ public class ManufacturerMapper {
         manufacturerWithProductsDto.setState(manufacturerEntity.getState());
         manufacturerWithProductsDto.setCountry(manufacturerEntity.getCountry());
         manufacturerWithProductsDto.setPin(manufacturerEntity.getPin());
-        manufacturerWithProductsDto.setOrders(manufacturerEntity.getOrders());
-        manufacturerWithProductsDto.setDeleted(manufacturerEntity.isDeleted());
-//        manufacturerWithProductsDto.setProducts(manufacturerEntity.getProducts().stream().map(product -> mapper.map(product, ProductDtoWithoutMerchantAndManufacturer.class)).toList());
+//        manufacturerWithProductsDto.setOrders(manufacturerEntity.getOrders());
+//        manufacturerWithProductsDto.setDeleted(manufacturerEntity.isDeleted());
+        manufacturerWithProductsDto.setProducts(manufacturerEntity.getProducts().stream().map(product -> mapper.map(product, ProductDtoWithoutMerchantAndManufacturer.class)).toList());
         manufacturerWithProductsDto.setDateCreated(manufacturerEntity.getDateCreated());
         manufacturerWithProductsDto.setDateModified(manufacturerEntity.getDateModified());
         manufacturerWithProductsDto.setCreatedBy(manufacturerEntity.getCreatedBy());

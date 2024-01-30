@@ -21,7 +21,7 @@ public class ProductVariantDto {
     private String image;
     private Date dateAvailable;
     private boolean available;
-    private boolean deleted;
+//    private boolean deleted;
     private Date dateCreated;
     private Date dateModified;
     private String createdBy;

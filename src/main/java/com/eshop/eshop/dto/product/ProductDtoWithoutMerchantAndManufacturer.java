@@ -38,7 +38,7 @@ public class ProductDtoWithoutMerchantAndManufacturer {
     private String metaTagKeywords;
     private String metaTagDescription;
     private Set<ProductVariantDto> variants;
-    private boolean deleted;
+//    private boolean deleted;
     private Date dateCreated;
     private Date dateModified;
     private String createdBy;

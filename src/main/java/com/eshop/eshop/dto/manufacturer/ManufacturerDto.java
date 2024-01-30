@@ -31,7 +31,7 @@ public class ManufacturerDto {
     private String country;
     private String pin;
     private List<String> orders;
-    private boolean deleted;
+//    private boolean deleted;
     private Date dateCreated;
     private Date dateModified;
     private String createdBy;

@@ -33,7 +33,7 @@ public class MerchantStoreWithProductsDto {
     private String storeEmailAddress;
     private String storeLogo;
     private String currency;
-    private boolean deleted;
+//    private boolean deleted;
     private List<ProductDtoWithoutMerchantAndManufacturer> products;
     private Date dateCreated;
     private Date dateModified;

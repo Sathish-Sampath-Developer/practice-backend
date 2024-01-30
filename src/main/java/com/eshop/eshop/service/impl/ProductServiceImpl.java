@@ -46,12 +46,16 @@ public class ProductServiceImpl implements ProductService {
         ProductEntity newProduct = productRepository.save(productMapper.convertToEntity(product));
 
         List<ProductEntity> merchantProducts = merchantStore.getProducts();
+        List<ProductEntity> manufacturerProducts = manufacturer.getProducts();
 
         merchantProducts.add(newProduct);
+        manufacturerProducts.add(newProduct);
 
         merchantStore.setProducts(merchantProducts);
+        manufacturer.setProducts(manufacturerProducts);
 
         merchantRepository.save(merchantStore);
+        manufacturerRepository.save(manufacturer);
 
         return productMapper.convertToDto(newProduct);
     }

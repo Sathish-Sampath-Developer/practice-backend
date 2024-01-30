@@ -36,7 +36,7 @@ public class MerchantStoreDto {
     private String storeLogo;
     private String currency;
     private boolean currencyFormatNational;
-    private boolean deleted;
+//    private boolean deleted;
     private Date dateCreated;
     private Date dateModified;
     private String createdBy;

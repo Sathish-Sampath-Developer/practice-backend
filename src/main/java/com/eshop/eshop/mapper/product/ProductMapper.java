@@ -60,7 +60,7 @@ public class ProductMapper {
 
         productEntity.setManufacturer(manufacturerMapper.convertToEntity(productDto.getManufacturer()));
         productEntity.setMerchantStore(merchantMapper.convertToEntity(productDto.getMerchantStore()));
-        productEntity.setDeleted(productDto.isDeleted());
+//        productEntity.setDeleted(productDto.isDeleted());
         productEntity.setDateCreated(productDto.getDateCreated());
         productEntity.setDateModified(productDto.getDateModified());
         productEntity.setCreatedBy(productDto.getCreatedBy());
@@ -100,7 +100,7 @@ public class ProductMapper {
 
         productDto.setManufacturer(manufacturerMapper.convertToDto(product.getManufacturer()));
         productDto.setMerchantStore(merchantMapper.convertToDto(product.getMerchantStore()));
-        productDto.setDeleted(product.isDeleted());
+//        productDto.setDeleted(product.isDeleted());
         productDto.setDateCreated(product.getDateCreated());
         productDto.setDateModified(product.getDateModified());
         productDto.setCreatedBy(product.getCreatedBy());
@@ -136,9 +136,9 @@ public class ProductMapper {
         productDto.setMetaTagDescription(product.getMetaTagDescription());
 
         if (product.getVariants() != null) {
-            productDto.setVariants(product.getVariants().stream().map(productVariant -> productVariantMapper.convertToDto(productVariant)).collect(Collectors.toSet()));
+            productDto.setVariants(product.getVariants().stream().map(productVariantMapper::convertToDto).collect(Collectors.toSet()));
         }
-        productDto.setDeleted(product.isDeleted());
+//        productDto.setDeleted(product.isDeleted());
         productDto.setDateCreated(product.getDateCreated());
         productDto.setDateModified(product.getDateModified());
         productDto.setCreatedBy(product.getCreatedBy());
