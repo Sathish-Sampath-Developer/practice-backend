@@ -7,6 +7,7 @@ import com.eshop.eshop.repository.ShoppingCartItemRepository;
 import com.eshop.eshop.repository.ShoppingCartRepository;
 import com.eshop.eshop.service.ShoppingCartService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
+    @Autowired
     private ShoppingCartRepository shoppingCartRepository;
+
+    @Autowired
     private ShoppingCartItemRepository shoppingCartItemRepository;
 
     @Override

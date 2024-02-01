@@ -5,6 +5,7 @@ import com.eshop.eshop.dto.auth.*;
 import com.eshop.eshop.service.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class AuthController {
 
+    @Autowired
     private AuthService authService;
 
     @PostMapping("/login")
@@ -35,5 +37,10 @@ public class AuthController {
     @PostMapping("/reset-password/{token}")
     public ResponseEntity<SuccessResponse> forgotPassword(@PathVariable(name = "token") String passwordResetToken, @RequestBody ResetPasswordDto resetPasswordDto) {
         return new ResponseEntity<>(authService.resetPassword(passwordResetToken,resetPasswordDto), HttpStatus.OK);
+    }
+
+    @PostMapping("/validate-auth-token")
+    public ResponseEntity<SuccessResponse> signUp(@RequestParam(name = "token", required = false) String token) {
+        return new ResponseEntity<>(authService.validateAuthToken(token), HttpStatus.OK);
     }
 }

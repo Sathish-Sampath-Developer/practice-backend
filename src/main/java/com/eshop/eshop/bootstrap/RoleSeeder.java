@@ -1,8 +1,10 @@
 package com.eshop.eshop.bootstrap;
 
 import com.eshop.eshop.entity.RoleEntity;
+import com.eshop.eshop.entity.UserEntity;
 import com.eshop.eshop.enums.RoleEnum;
 import com.eshop.eshop.repository.RoleRepository;
+import com.eshop.eshop.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +49,6 @@ public class RoleSeeder implements ApplicationListener<ContextRefreshedEvent> {
             }
         });
     }
+
+
 }

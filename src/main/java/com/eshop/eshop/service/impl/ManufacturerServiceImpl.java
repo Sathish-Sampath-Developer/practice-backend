@@ -9,6 +9,7 @@ import com.eshop.eshop.repository.ManufacturerRepository;
 import com.eshop.eshop.service.AuthService;
 import com.eshop.eshop.service.ManufacturerService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 public class ManufacturerServiceImpl implements ManufacturerService {
 
+    @Autowired
     private final ManufacturerRepository manufacturerRepository;
+    @Autowired
     private final ManufacturerMapper manufacturerMapper;
+    @Autowired
     private final AuthService authService;
 
     @Override

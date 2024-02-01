@@ -14,5 +14,7 @@ public interface AuthService {
 
     SuccessResponse resetPassword(String passwordResetToken, ResetPasswordDto resetPasswordDto);
 
+    SuccessResponse validateAuthToken(String token);
+
     String getAuthenticatedUsername();
 }

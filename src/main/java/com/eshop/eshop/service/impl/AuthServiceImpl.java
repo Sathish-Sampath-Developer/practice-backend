@@ -1,7 +1,7 @@
 package com.eshop.eshop.service.impl;
 
 import com.eshop.eshop.Utils.CreatePasswordResetToken;
-import com.eshop.eshop.dto.*;
+import com.eshop.eshop.dto.SuccessResponse;
 import com.eshop.eshop.dto.auth.*;
 import com.eshop.eshop.entity.RoleEntity;
 import com.eshop.eshop.entity.UserEntity;
@@ -12,6 +12,7 @@ import com.eshop.eshop.service.AuthService;
 import com.eshop.eshop.service.JwtService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,11 +29,17 @@ import java.util.Collections;
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private RoleRepository roleRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
     private JwtService jwtService;
+    @Autowired
     private CreatePasswordResetToken createPasswordResetToken;
 
     @Override
@@ -104,6 +111,16 @@ public class AuthServiceImpl implements AuthService {
 
         return new SuccessResponse(true, "Your password was updated successfully!");
     }
+
+    @Override
+    public SuccessResponse validateAuthToken(String token) {
+       if (StringUtils.hasText(token) && jwtService.validateToken(token) ){
+           return new SuccessResponse(true,"Your token was valid!");
+       } else {
+           throw new ServiceException(HttpStatus.UNAUTHORIZED,"Your token invalid or expires!");
+       }
+    }
+
     @Override
     public String getAuthenticatedUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

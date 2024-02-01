@@ -9,6 +9,7 @@ import com.eshop.eshop.repository.MerchantRepository;
 import com.eshop.eshop.service.AuthService;
 import com.eshop.eshop.service.MerchantService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MerchantServiceImpl implements MerchantService {
 
+    @Autowired
     private final MerchantRepository merchantRepository;
+    @Autowired
     private final AuthService authService;
+    @Autowired
     private final MerchantMapper mapper;
 
     @Override

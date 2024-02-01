@@ -10,6 +10,7 @@ import com.eshop.eshop.repository.ProductVariantRepository;
 import com.eshop.eshop.service.AuthService;
 import com.eshop.eshop.service.ProductVariantService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,14 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ProductVariantServiceImpl implements ProductVariantService {
+
+    @Autowired
     private ProductRepository productRepository;
+    @Autowired
     private ProductVariantRepository productVariantRepository;
+    @Autowired
     private AuthService authService;
+    @Autowired
     private ProductVariantMapper productVariantMapper;
 
     @Override

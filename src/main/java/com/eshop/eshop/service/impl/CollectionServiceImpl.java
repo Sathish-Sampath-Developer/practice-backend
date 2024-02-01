@@ -5,6 +5,7 @@ import com.eshop.eshop.exception.ServiceException;
 import com.eshop.eshop.repository.CollectionRepository;
 import com.eshop.eshop.service.CollectionService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CollectionServiceImpl implements CollectionService {
 
+    @Autowired
     private final CollectionRepository collectionRepository;
 
     @Override

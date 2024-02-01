@@ -3,6 +3,7 @@ package com.eshop.eshop.config;
 import com.eshop.eshop.entity.UserEntity;
 import com.eshop.eshop.exception.ServiceException;
 import com.eshop.eshop.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetails implements UserDetailsService {
 
+    @Autowired
     private final UserRepository userRepository;
 
     public CustomUserDetails(UserRepository userRepository) {

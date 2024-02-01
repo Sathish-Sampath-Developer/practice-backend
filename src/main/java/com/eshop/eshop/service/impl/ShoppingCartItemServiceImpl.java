@@ -5,6 +5,7 @@ import com.eshop.eshop.exception.ServiceException;
 import com.eshop.eshop.repository.ShoppingCartItemRepository;
 import com.eshop.eshop.service.ShoppingCartItemService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
 
+    @Autowired
     private ShoppingCartItemRepository shoppingCartItemRepository;
 
     @Override

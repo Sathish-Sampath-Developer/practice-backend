@@ -21,3 +21,6 @@ logging:
 app:
   jwt-secret: bXktand0LXNlY3JldC1rZXktZm9yLWUtc2hvcC1hcHBsaWNhdGlvbg==
   jwt-expires-in: 2629800000
+  super-user-email: admin@gmail.com
+  super-user-phone: 9090909052
+  super-user-password: Sathish@1998
